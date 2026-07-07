@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "width": 5,
+  "height": 5,
+  "tiles": [
+    {
+      "id": 1,
+      "color": 1,
+      "startX": 2,
+      "startY": 1
+    }
+  ],
+  "exitFrames": [
+    {
+      "x": 2,
+      "y": 4,
+      "edge": 1,
+      "acceptedColor": 1
+    }
+  ],
+  "obstacles": [
+    {
+      "type": "InkBleed",
+      "x": 2,
+      "y": 3,
+      "targetTileId": 0,
+      "serializedProperties": ""
+    }
+  ]
+}

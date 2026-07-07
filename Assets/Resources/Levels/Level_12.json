@@ -1,0 +1,37 @@
+{
+  "formatVersion": 1,
+  "width": 6,
+  "height": 6,
+  "tiles": [
+    {
+      "id": 1,
+      "color": 2,
+      "startX": 2,
+      "startY": 2
+    }
+  ],
+  "exitFrames": [
+    {
+      "x": 5,
+      "y": 2,
+      "edge": 4,
+      "acceptedColor": 2
+    }
+  ],
+  "obstacles": [
+    {
+      "type": "FixedObstacle",
+      "x": 3,
+      "y": 2,
+      "targetTileId": 0,
+      "serializedProperties": ""
+    },
+    {
+      "type": "FixedObstacle",
+      "x": 3,
+      "y": 3,
+      "targetTileId": 0,
+      "serializedProperties": ""
+    }
+  ]
+}

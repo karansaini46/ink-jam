@@ -69,6 +69,12 @@ namespace InkJam.Core
             tile.IsExited = true;
         }
 
+        public void RollbackExit(Tile tile, GridCoord rollbackCoord)
+        {
+            tile.IsExited = false;
+            UpdateTilePosition(tile, rollbackCoord);
+        }
+
         public void RecordMove(MoveRecord record)
         {
             MoveLog.Add(record);

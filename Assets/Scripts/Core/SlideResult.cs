@@ -11,10 +11,11 @@ namespace InkJam.Core
         public GridCoord EndCoord { get; }
         public List<GridCoord> Path { get; }
         public bool DidExit { get; }
+        public bool Bounced { get; }
 
-        public bool IsValidMove => Path.Count > 1;
+        public bool IsValidMove => Path.Count > 1 || Bounced;
 
-        public SlideResult(int tileId, Direction dir, GridCoord startCoord, GridCoord endCoord, List<GridCoord> path, bool didExit)
+        public SlideResult(int tileId, Direction dir, GridCoord startCoord, GridCoord endCoord, List<GridCoord> path, bool didExit, bool bounced = false)
         {
             TileId = tileId;
             Dir = dir;
@@ -22,6 +23,7 @@ namespace InkJam.Core
             EndCoord = endCoord;
             Path = new List<GridCoord>(path);
             DidExit = didExit;
+            Bounced = bounced;
         }
 
         public void Apply(Board board)
@@ -37,8 +39,17 @@ namespace InkJam.Core
                 throw new InvalidOperationException($"Tile {TileId} not found on board.");
             }
 
+            if (Bounced)
+            {
+                tile.DecrementLayer();
+            }
+
             if (DidExit)
             {
+                if (Path.Count >= 2)
+                {
+                    tile.PreExitCoord = Path[Path.Count - 2];
+                }
                 board.MarkTileExited(tile);
             }
             else

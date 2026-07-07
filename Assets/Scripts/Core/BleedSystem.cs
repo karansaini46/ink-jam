@@ -6,6 +6,8 @@ namespace InkJam.Core
 {
     public static class BleedSystem
     {
+        public static event Action<GridCoord> OnBleedSpread;
+
         public static void Tick(Board board, SlideResult lastMove, Random random)
         {
             // Find InkBleedObstacle(s)
@@ -38,6 +40,7 @@ namespace InkJam.Core
                         if (nextCell.HasValue)
                         {
                             bleedState.AddBledCell(nextCell.Value);
+                            OnBleedSpread?.Invoke(nextCell.Value);
                         }
                         bleedState.MovesSinceLastSpread = 0;
                     }

@@ -25,11 +25,19 @@ namespace InkJam.Core
                 ExitFrame exitFrame = board.ExitFrames.FirstOrDefault(e => e.Coord == next);
                 if (exitFrame != null && exitFrame.AcceptedColor == tile.Color)
                 {
-                    // Valid exit
-                    path.Add(next);
-                    current = next;
-                    didExit = true;
-                    break;
+                    if (tile.LayerCount > 0)
+                    {
+                        // Bounce!
+                        return new SlideResult(tile.Id, dir, tile.CurrentCoord, current, path, false, true);
+                    }
+                    else
+                    {
+                        // Valid exit
+                        path.Add(next);
+                        current = next;
+                        didExit = true;
+                        break;
+                    }
                 }
                 
                 // Check if any obstacle blocks movement through this cell

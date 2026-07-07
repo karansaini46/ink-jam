@@ -1,0 +1,94 @@
+{
+  "formatVersion": 1,
+  "width": 9,
+  "height": 9,
+  "tiles": [
+    {
+      "id": 1,
+      "color": 1,
+      "startX": 4,
+      "startY": 2
+    },
+    {
+      "id": 2,
+      "color": 2,
+      "startX": 4,
+      "startY": 6
+    },
+    {
+      "id": 3,
+      "color": 3,
+      "startX": 2,
+      "startY": 4
+    },
+    {
+      "id": 4,
+      "color": 4,
+      "startX": 6,
+      "startY": 4
+    }
+  ],
+  "exitFrames": [
+    {
+      "x": 4,
+      "y": 0,
+      "edge": 2,
+      "acceptedColor": 1
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "edge": 1,
+      "acceptedColor": 2
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "edge": 3,
+      "acceptedColor": 3
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "edge": 4,
+      "acceptedColor": 4
+    }
+  ],
+  "obstacles": [
+    {
+      "type": "InkBleed",
+      "x": 4,
+      "y": 4,
+      "targetTileId": 0,
+      "serializedProperties": ""
+    },
+    {
+      "type": "FixedObstacle",
+      "x": 3,
+      "y": 3,
+      "targetTileId": 0,
+      "serializedProperties": ""
+    },
+    {
+      "type": "FixedObstacle",
+      "x": 5,
+      "y": 5,
+      "targetTileId": 0,
+      "serializedProperties": ""
+    },
+    {
+      "type": "FixedObstacle",
+      "x": 3,
+      "y": 5,
+      "targetTileId": 0,
+      "serializedProperties": ""
+    },
+    {
+      "type": "FixedObstacle",
+      "x": 5,
+      "y": 3,
+      "targetTileId": 0,
+      "serializedProperties": ""
+    }
+  ]
+}

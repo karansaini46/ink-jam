@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "width": 5,
+  "height": 5,
+  "tiles": [
+    {
+      "id": 1,
+      "color": 1,
+      "startX": 2,
+      "startY": 2
+    },
+    {
+      "id": 2,
+      "color": 2,
+      "startX": 2,
+      "startY": 1
+    }
+  ],
+  "exitFrames": [
+    {
+      "x": 0,
+      "y": 2,
+      "edge": 3,
+      "acceptedColor": 1
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "edge": 1,
+      "acceptedColor": 2
+    }
+  ],
+  "obstacles": []
+}

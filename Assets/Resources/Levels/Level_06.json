@@ -1,0 +1,46 @@
+{
+  "formatVersion": 1,
+  "width": 6,
+  "height": 6,
+  "tiles": [
+    {
+      "id": 1,
+      "color": 5,
+      "startX": 1,
+      "startY": 1
+    },
+    {
+      "id": 2,
+      "color": 6,
+      "startX": 4,
+      "startY": 4
+    },
+    {
+      "id": 3,
+      "color": 5,
+      "startX": 2,
+      "startY": 4
+    }
+  ],
+  "exitFrames": [
+    {
+      "x": 1,
+      "y": 5,
+      "edge": 1,
+      "acceptedColor": 5
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "edge": 2,
+      "acceptedColor": 6
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "edge": 3,
+      "acceptedColor": 5
+    }
+  ],
+  "obstacles": []
+}

@@ -1,0 +1,56 @@
+{
+  "formatVersion": 1,
+  "width": 8,
+  "height": 8,
+  "tiles": [
+    {
+      "id": 1,
+      "color": 3,
+      "startX": 2,
+      "startY": 2
+    },
+    {
+      "id": 2,
+      "color": 1,
+      "startX": 5,
+      "startY": 5
+    }
+  ],
+  "exitFrames": [
+    {
+      "x": 2,
+      "y": 7,
+      "edge": 1,
+      "acceptedColor": 3
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "edge": 2,
+      "acceptedColor": 1
+    }
+  ],
+  "obstacles": [
+    {
+      "type": "FixedObstacle",
+      "x": 2,
+      "y": 4,
+      "targetTileId": 0,
+      "serializedProperties": ""
+    },
+    {
+      "type": "FixedObstacle",
+      "x": 5,
+      "y": 3,
+      "targetTileId": 0,
+      "serializedProperties": ""
+    },
+    {
+      "type": "FixedObstacle",
+      "x": 4,
+      "y": 4,
+      "targetTileId": 0,
+      "serializedProperties": ""
+    }
+  ]
+}

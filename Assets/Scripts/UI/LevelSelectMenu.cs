@@ -12,30 +12,64 @@ namespace InkJam.UI
         
         private Vector2 _scrollPos;
 
+        private InkJam.Generator.DifficultyCurve _difficultyCurve;
+
         private void Awake()
         {
             _levelController = GetComponent<LevelController>();
-            _levelController.OnLevelWon += HandleLevelWon;
             
-            // Load all text assets from Resources/Levels/
-            _levelFiles = Resources.LoadAll<TextAsset>("Levels");
+            // Try to load DifficultyCurve from Resources or AssetDatabase
+#if UNITY_EDITOR
+            string[] guids = UnityEditor.AssetDatabase.FindAssets("t:DifficultyCurve");
+            if (guids.Length > 0)
+            {
+                string assetPath = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[0]);
+                _difficultyCurve = UnityEditor.AssetDatabase.LoadAssetAtPath<InkJam.Generator.DifficultyCurve>(assetPath);
+            }
+#endif
+            if (_difficultyCurve == null)
+            {
+                _difficultyCurve = Resources.Load<InkJam.Generator.DifficultyCurve>("DifficultyCurve");
+            }
+
+            if (_difficultyCurve == null)
+            {
+                _difficultyCurve = ScriptableObject.CreateInstance<InkJam.Generator.DifficultyCurve>();
+            }
         }
 
         private void OnDestroy()
         {
-            if (_levelController != null)
+            // Clean up
+        }
+
+        private void Start()
+        {
+            if (InkJam.Gameplay.DailyRewardManager.IsRewardAvailable())
             {
-                _levelController.OnLevelWon -= HandleLevelWon;
+                var dailyUI = gameObject.GetComponent<DailyRewardUI>();
+                if (dailyUI == null)
+                {
+                    dailyUI = gameObject.AddComponent<DailyRewardUI>();
+                }
+                dailyUI.Show();
             }
         }
 
-        private void HandleLevelWon()
+        public void ShowMenu()
         {
             _showMenu = true;
+            if (_levelController != null && _levelController.CurrentBoard != null)
+            {
+                _levelController.CurrentBoard.Tiles.Clear(); // Just to clear visual state if needed
+            }
         }
 
         private void OnGUI()
         {
+            var dailyUI = GetComponent<DailyRewardUI>();
+            if (dailyUI != null && dailyUI.IsShowing) return; // Wait for claim
+
             if (!_showMenu) return;
 
             // Draw a semi-transparent background
@@ -48,37 +82,35 @@ namespace InkJam.UI
 
             GUILayout.BeginArea(menuRect);
             
-            GUILayout.Label("Select a Level", new GUIStyle(GUI.skin.label) { fontSize = 24, alignment = TextAnchor.MiddleCenter });
+            GUILayout.Label("Select a Level (Procedural)", new GUIStyle(GUI.skin.label) { fontSize = 24, alignment = TextAnchor.MiddleCenter });
             GUILayout.Space(20);
 
-            if (_levelFiles == null || _levelFiles.Length == 0)
+            _scrollPos = GUILayout.BeginScrollView(_scrollPos);
+            
+            // Provide 50 levels for playtesting
+            for (int i = 1; i <= 50; i++)
             {
-                GUILayout.Label("No levels found in Resources/Levels/");
-            }
-            else
-            {
-                _scrollPos = GUILayout.BeginScrollView(_scrollPos);
-                
-                foreach (var level in _levelFiles)
+                if (GUILayout.Button($"Level {i}", GUILayout.Height(50)))
                 {
-                    // Draw a big button for each level
-                    if (GUILayout.Button(level.name, GUILayout.Height(50)))
-                    {
-                        LoadLevel(level.name);
-                    }
-                    GUILayout.Space(10);
+                    LoadProceduralLevel(i);
                 }
-
-                GUILayout.EndScrollView();
+                GUILayout.Space(10);
             }
 
+            GUILayout.EndScrollView();
             GUILayout.EndArea();
         }
 
-        private void LoadLevel(string levelName)
+        private void LoadProceduralLevel(int levelNumber)
         {
             _showMenu = false;
-            _levelController.LoadLevel(levelName);
+            var genParams = _difficultyCurve.GetParamsForLevel(levelNumber);
+            
+            // We lock the seed based on the level number so "Level 5" is always the same puzzle 
+            // for the same difficulty curve constants. This allows rubber-banding to work predictably.
+            genParams.Seed = 1000 + levelNumber; 
+
+            _levelController.LoadGeneratedLevel(genParams);
         }
     }
 }

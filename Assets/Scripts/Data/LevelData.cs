@@ -21,6 +21,8 @@ namespace InkJam.Data
         public TileColor color;
         public int startX;
         public int startY;
+        public int layerCount;
+        public string linkId;
     }
 
     [Serializable]

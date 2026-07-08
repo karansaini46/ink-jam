@@ -30,3 +30,8 @@ sysinfo.txt
 *.apk
 *.aab
 *.unitypackage
+
+# Custom ignores
+ink jam/
+run_git.py
+run_git_commits.py

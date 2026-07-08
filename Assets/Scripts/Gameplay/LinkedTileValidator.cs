@@ -4,6 +4,10 @@ using InkJam.Core;
 
 namespace InkJam.Gameplay
 {
+    /// <summary>
+    /// Validates the synchronization of linked tiles. Linked tiles must exit the board within one move of each other.
+    /// If a linked tile exits and its partner does not exit on the subsequent move, the first tile's exit is rolled back.
+    /// </summary>
     public class LinkedTileValidator
     {
         private Dictionary<string, int> _firstExitMoves = new Dictionary<string, int>();
